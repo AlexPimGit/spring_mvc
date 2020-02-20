@@ -41,10 +41,11 @@ public class WebConfig implements WebMvcConfigurer {//имплеминтируе
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {//
+        //Перехватчик, который позволяет изменять текущую локаль при каждом запросе через настраиваемый параметр запроса (имя параметра по умолчанию: «локаль»).
         LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();//в конфигурации этого перехватчика определяется
         // параметр "параметр" для смены региональных настроек веб приложения
-        interceptor.setParamName("locale");
-        registry.addInterceptor(interceptor);
+        interceptor.setParamName("locale");//Задайте имя параметра, который содержит спецификацию локали в запросе на изменение локали
+        registry.addInterceptor(interceptor);//
     }
 
     @Bean
@@ -61,9 +62,9 @@ public class WebConfig implements WebMvcConfigurer {//имплеминтируе
         //хранение и извлечение региоанальных настроек из браузера
     CookieLocaleResolver localeResolver() {
         CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver();
-        cookieLocaleResolver.setDefaultLocale(Locale.ENGLISH);
+        cookieLocaleResolver.setDefaultLocale(Locale.ENGLISH);//Установите фиксированный языковой стандарт, который будет возвращать этот распознаватель, если cookie не найден.
         cookieLocaleResolver.setCookieMaxAge(3600);
-        cookieLocaleResolver.setCookieName("locale");
+        cookieLocaleResolver.setCookieName("locale");//Используйте данное имя для файлов cookie, созданных этим генератором.
         return cookieLocaleResolver;
     }
 }
